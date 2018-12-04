@@ -31,6 +31,8 @@ app.use(jwt({secret: secret.sign}).unless({
         /^\/api\/v1\/user\/list/,
          // 获取用户列表接口信息
          /^\/api\/v1\/user\/info/,
+         //请求添加好友或拉黑好友
+         /^\/api\/v1\/friend\/addFriend/,
     ]
 }))
 
