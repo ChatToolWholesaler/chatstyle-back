@@ -1,6 +1,7 @@
+const config= require('../config/config')
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('test', 'root', 'password', {
-    host: 'localhost',
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
     dialect: 'mysql',
     operatorsAliases: false,
     dialectOptions: {
