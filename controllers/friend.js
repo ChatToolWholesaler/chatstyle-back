@@ -22,7 +22,6 @@ class FriendController{
             }
             console.log(forfriend);
            await friendModel.create(forfriend);
-
            ctx.response.status = 200;
            ctx.body = statusCode.SUCCESS_200('好友请求发送成功')
         }
@@ -42,9 +41,31 @@ class FriendController{
             ctx.response.status = 400;//错误的请求
             ctx.body = statusCode.ERROR_400()
         }
-
-
     }
+
+    //软删除好友或 移除黑名单 type:0 删除好友,1 移除黑名单
+    static async delete(ctx){
+        const data=ctx.request.body;
+        if(parseInt(data.type)==0)//删除好友
+        {
+        }
+        else if(parseInt(data.type)==1){//拉黑好友
+            //拉黑好友前需要进行是否是好友的判断，暂时没写。
+            const forblack = {
+                user_id: data.initiativeAddId,
+                friend_id: data.passiveAddId,
+                friendtype: 1
+            }
+            await friendModel.create(forblack);
+            ctx.response.status = 200;
+            ctx.body = statusCode.SUCCESS_200('拉黑成功')
+        }
+        else{
+            ctx.response.status = 400;//错误的请求
+            ctx.body = statusCode.ERROR_400()
+        }
+    }
+    
 }
 
 module.exports = FriendController

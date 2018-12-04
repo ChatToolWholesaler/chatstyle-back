@@ -33,6 +33,8 @@ app.use(jwt({secret: secret.sign}).unless({
          /^\/api\/v1\/user\/info/,
          //请求添加好友或拉黑好友
          /^\/api\/v1\/friend\/addFriend/,
+         //删除好友或拉出黑名单
+         /^\/api\/v1\/friend\/deleteFriend/,
     ]
 }))
 
