@@ -79,9 +79,9 @@ router.post('/friend/deleteFriend',FriendController.delete);
 参数 | 说明 |  类型  
 - | :-: | -:  
 username | 用户名| string  
-password | 密码 | string 
-nickname | 昵称 | string
-gender | 性别| Boolean 
+password | 密码 | string   
+nickname | 昵称 | string  
+gender | 性别| Boolean   
 
 ### 登录接口
  >http://localhost:3000/api/v1/user/login
@@ -92,8 +92,8 @@ gender | 性别| Boolean
 #### 参数
 参数 | 说明 |  类型  
 - | :-: | -:  
-username | 用户名| string  
-password | 密码 | string
+username | 用户名| string    
+password | 密码 | string  
 
 <!-- #### 返回的示例结果
 ```JavaScript
