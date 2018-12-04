@@ -69,7 +69,8 @@ class UserController {
                 const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'});
 
                 ctx.response.status = 200;
-                ctx.body = statusCode.SUCCESS_200('创建用户成功', token)
+        
+                ctx.body = statusCode.SUCCESS_200({user_id:newUser.id })
             }
         } else {
 
@@ -150,7 +151,7 @@ class UserController {
      * @param ctx
      * @returns {Promise.<void>}
      */
-    static async login(ctx) {
+    static async login(ctx) {//登录
         const data = ctx.request.body
         // 查询用户
         const user = await userModel.findUserByName(data.username)
@@ -165,13 +166,17 @@ class UserController {
                 }
                 // 签发token
                 const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'});
-
+                
+                const user_id=user.id;
+                const profile=await profileModel.findProfileById(user_id)
+                console.log(profile);
+                //数据库查询,查找user_id的nickname,sign,gender.
+                const nickname=profile.nickname;
+                const sign=profile.sign;
+                const gender=profile.gender;
                 ctx.response.status = 200;
-                ctx.body = statusCode.SUCCESS_200('登录成功', {
-                    id: user.id,
-                    username: user.username,
-                    token: token
-                })
+                //,{ user_id,nickname,sign,gender,token}
+                ctx.body = statusCode.SUCCESS_200({user_id,nickname,sign,gender,token});
             } else {
 
                 ctx.response.status = 412;

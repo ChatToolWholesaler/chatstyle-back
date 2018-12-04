@@ -4,7 +4,7 @@ const Profile = Sequelize.import('../schema/profile.js')
 Profile.sync({force: false});
 const User = Sequelize.import('../schema/user.js')
 User.sync({force: false});
-Profile.belongsTo(User);
+//Profile.belongsTo(User);
 class ProfileModel {
     /**
      * 创建用户的profile
@@ -35,28 +35,28 @@ class ProfileModel {
     //     return true
     // }
 
-    // /**
-    //  * 查询用户列表
-    //  * @returns {Promise<*>}
-    //  */
-    // static async findAllUserList() {
-    //     return await User.findAll({
-    //         attributes: ['id', 'username']
-    //     })
-    // }
+    /**
+     * 查询用户的profile列表
+     * @returns {Promise<*>}
+     */
+    static async findAllUserList() {
+        return await Profile.findAll({
+            attributes: ['id', 'username']
+        })
+    }
 
-    // /**
-    //  * 查询用户信息
-    //  * @param username  姓名
-    //  * @returns {Promise.<*>}
-    //  */
-    // static async findUserByName(username) {
-    //     return await User.findOne({
-    //         where: {
-    //             username
-    //         }
-    //     })
-    // }
+    /**
+     * 查询用户的profile信息
+     * @param user_id  姓名
+     * @returns {Promise.<*>}
+     */
+    static async findProfileById(user_id) {
+        return await Profile.findOne({
+            where: {
+                user_id
+            }
+        })
+    }
 }
 
 module.exports = ProfileModel

@@ -38,6 +38,12 @@ const statusCode = {
             msg,
             data,
         }
+    },
+    SUCCESS_200: (data) => {
+        return {
+            code: 200,
+            data,
+        }
     }
 }
 

@@ -26,7 +26,8 @@ module.exports = function (sequelize, DataTypes) {
         },
         sign: {
             type: DataTypes.STRING(255),
-            allowNull: true
+            allowNull: true,
+            defaultValue:" "
         }
         ,
         gender:{

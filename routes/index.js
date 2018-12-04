@@ -34,8 +34,14 @@ router.post('/user/info', UserController.getUserInfo);
 // 获取用户列表
 router.get('/user/list', UserController.getUserList);
 
+/**
+ * 好友黑名单接口
+ */
 //添加好友或者拉黑好友
 router.post('/friend/addFriend',FriendController.create);
+//删除好友或者接触黑名单
+router.post('/friend/deleteFriend',FriendController.delete);
+
 /**
  * 其它接口
  */

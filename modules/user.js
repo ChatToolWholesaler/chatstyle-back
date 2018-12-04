@@ -4,7 +4,7 @@ const User = Sequelize.import('../schema/user.js')
 User.sync({force: false});
 const Profile = Sequelize.import('../schema/profile.js')
 Profile.sync({force: false});
-User.hasOne(Profile);
+//User.hasOne(Profile);
 
 class UserModel {
     /**
