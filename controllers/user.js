@@ -30,7 +30,6 @@ class UserController {
         if (user.username && user.password) {
             // 查询用户名是否重复
             const existUser = await userModel.findUserByName(user.username)
-
             if (existUser) {
                 // 反馈存在用户名
                 ctx.response.status = 403;
@@ -209,6 +208,13 @@ class UserController {
             ctx.body = statusCode.ERROR_412('获取失败')
 
         }
+    }
+
+    //根据username, 获得用户ID.
+    static async getUserIdByName(username){//异步操作一定会返回Promise对象.
+        const User = await userModel.findUserByName(username);
+        console.log(User)
+        return User;
     }
 }
 

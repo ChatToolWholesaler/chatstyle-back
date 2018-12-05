@@ -43,7 +43,7 @@ router.get('/user/list', UserController.getUserList);
  */
 //添加好友或者拉黑好友
 router.post('/friend/addFriend',FriendController.create);
-//删除好友或者接触黑名单
+//删除好友或者移除黑名单
 router.post('/friend/deleteFriend',FriendController.delete);
 
 /**
