@@ -31,6 +31,11 @@ const statusCode = {
             msg
         }
     },
+    ERROR_412: () => {
+        return {
+            code: 412,
+        }
+    },
 
     SUCCESS_200: (msg, data) => {
         return {
@@ -44,7 +49,12 @@ const statusCode = {
             code: 200,
             data,
         }
-    }
+    },
+    // SUCCESS_200: () => {
+    //     return {
+    //         code: 200,
+    //     }
+    // }
 }
 
 module.exports = statusCode

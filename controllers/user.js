@@ -69,8 +69,9 @@ class UserController {
                 const token = jwt.sign(userToken, secret.sign, {expiresIn: '1h'});
 
                 ctx.response.status = 200;
+                const data={user_id:newUser.id}
         
-                ctx.body = statusCode.SUCCESS_200({user_id:newUser.id })
+                ctx.body = statusCode.SUCCESS_200(data)
             }
         } else {
 
