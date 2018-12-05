@@ -40,15 +40,7 @@ class FriendController{
         }
         //
         else if(parseInt(data.type)==1){//拉黑好友
-            //拉黑好友前需要进行是否是好友的判断，暂时没写。
-            // const forblack = {
-            //     user_id: data.initiativeAddId,
-            //     friend_id: data.passiveAddId,
-            //     friendtype: 1
-            // }
-            // await friendModel.create(forblack);
-            // ctx.response.status = 200;
-            // ctx.body = statusCode.SUCCESS_200('拉黑成功')
+
             //根据好友的名字找到好友
             //再找到id
             const passiveUser=await UserController.getUserIdByName(data.passiveAddName)
@@ -61,7 +53,6 @@ class FriendController{
                 await friendModel.updateRelation(data.initiativeAddId,passiveUser.id,1)
                 //更改(passiveid,initid ).friendtype=3 为陌生人
                 await friendModel.updateRelation(passiveUser.id,data.initiativeAddId,3)
- 
             }else{
                 //如果不存在,数据库不进行任何操作.
                 

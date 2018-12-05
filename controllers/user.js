@@ -32,7 +32,7 @@ class UserController {
             const existUser = await userModel.findUserByName(user.username)
             if (existUser) {
                 // 反馈存在用户名
-                ctx.response.status = 403;
+                ctx.response.status = 200;
                 ctx.body = statusCode.ERROR_403('用户已经存在')
             } else {
 
@@ -75,7 +75,7 @@ class UserController {
         } else {
 
             // 参数错误
-            ctx.response.status = 412;
+            ctx.response.status = 200;
             ctx.body = statusCode.ERROR_412('创建失败，参数错误');
         }
     }
@@ -100,7 +100,7 @@ class UserController {
         }
         catch(err){
 
-            ctx.response.status = 412;
+            ctx.response.status = 200;
             ctx.body = statusCode.ERROR_412('查询失败!')
         }
         
@@ -120,7 +120,7 @@ class UserController {
         //         ctx.body = statusCode.SUCCESS_200('查询成功', user)
         //     } catch (err) {
 
-        //         ctx.response.status = 412;
+        //         ctx.response.status = 200;
         //         ctx.body = statusCode.ERROR_412('查询失败，authorization error!')
         //     }
         // }
@@ -141,7 +141,7 @@ class UserController {
             ctx.body = statusCode.SUCCESS_200('删除用户成功')
         } else {
 
-            ctx.response.status = 412;
+            ctx.response.status = 200;
             ctx.body = statusCode.ERROR_412('用户ID必须传')
         }
     }
@@ -179,12 +179,12 @@ class UserController {
                 ctx.body = statusCode.SUCCESS_200({user_id,nickname,sign,gender,token});
             } else {
 
-                ctx.response.status = 412;
+                ctx.response.status = 200;
                 ctx.body = statusCode.ERROR_412('用户名或密码错误');
             }
         } else {
 
-            ctx.response.status = 403;
+            ctx.response.status = 200;
             ctx.body = statusCode.ERROR_403('用户不存在');
         }
     }
@@ -204,7 +204,7 @@ class UserController {
             ctx.body = statusCode.SUCCESS_200('查询成功', data)
         } else {
 
-            ctx.response.status = 412;
+            ctx.response.status = 200;
             ctx.body = statusCode.ERROR_412('获取失败')
 
         }
