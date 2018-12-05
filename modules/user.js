@@ -58,6 +58,19 @@ class UserModel {
             }
         })
     }
+
+    /**
+     * 查询用户信息
+     * @param id  用户id
+     * @returns {Promise.<*>}
+     */
+    static async findUserById(id) {
+        return await User.findOne({
+            where: {
+                id
+            }
+        })
+    }
 }
 
 module.exports = UserModel

@@ -30,7 +30,7 @@ router.delete('/user/delete/:id', UserController.delete);
 // 获取用户信息
 //router.get('/user/info', UserController.getUserInfo);
 // 获取用户信息
-router.post('/user/info', UserController.getUserInfo);
+router.post('/user/getUserInfo', UserController.getUserInfo);
 // 获取用户列表
 router.get('/user/list', UserController.getUserList);
 

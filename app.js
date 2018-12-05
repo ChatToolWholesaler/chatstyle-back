@@ -30,7 +30,7 @@ app.use(jwt({secret: secret.sign}).unless({
         // 获取用户列表接口
         /^\/api\/v1\/user\/list/,
          // 获取用户列表接口信息
-         /^\/api\/v1\/user\/info/,
+         /^\/api\/v1\/user\/getUserInfo/,
          //请求添加好友或拉黑好友
          /^\/api\/v1\/friend\/addFriend/,
          //删除好友或拉出黑名单

@@ -86,17 +86,17 @@ class UserController {
      * @returns {Promise<void>}
      */
     static async getUserInfo(ctx) {
-        
-
-        const data = ctx.request.body;
-        const user = {
-            id: data.id,
-            username: data.username,
-        }
-
+        const data=ctx.request.body;
+        const profile=await profileModel.findProfileById(data.user_id)
+        console.log(profile);
+                //数据库查询,查找user_id的nickname,sign,gender.
+        const nickname=profile.nickname;
+        const sign=profile.sign;
+        const gender=profile.gender;
+        const userid=data.user_id
         try{
-        ctx.response.status = 200;
-        ctx.body = statusCode.SUCCESS_200('查询成功', user)
+            ctx.response.status = 200;
+            ctx.body = statusCode.SUCCESS_200({nickname,userid,gender,sign});
         }
         catch(err){
 
