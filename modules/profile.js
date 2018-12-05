@@ -57,6 +57,24 @@ class ProfileModel {
             }
         })
     }
+
+    /**
+     * 修改用户的profile信息
+     * @param user_id  用户id
+     * @returns {Promise.<*>}
+     */
+    static async updateSign(user_id,newSign){
+        await Profile.update(
+            {
+                sign:newSign
+            },{
+                where:{
+                    user_id
+                },
+                fields:['sign']
+            });
+        return true;
+    }
 }
 
 module.exports = ProfileModel

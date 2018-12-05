@@ -55,6 +55,12 @@ const statusCode = {
     //         code: 200,
     //     }
     // }
+    SUCCESS2_200: () => {
+        return {
+            code: 200,
+        }
+    }
+    //这个函数会覆盖掉上一个函数
 }
 
 module.exports = statusCode

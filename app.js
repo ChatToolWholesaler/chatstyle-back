@@ -35,6 +35,8 @@ app.use(jwt({secret: secret.sign}).unless({
          /^\/api\/v1\/friend\/addFriend/,
          //删除好友或拉出黑名单
          /^\/api\/v1\/friend\/deleteFriend/,
+          //修改用户个性签名
+          /^\/api\/v1\/user\/setSign/,
     ]
 }))
 
