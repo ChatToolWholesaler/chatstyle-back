@@ -63,7 +63,7 @@ class FriendController{
        
         }
         else{
-            ctx.response.status = 400;//错误的请求
+            ctx.response.status = 200;//错误的请求
             ctx.body = statusCode.ERROR_400()
         }
     }
@@ -94,7 +94,7 @@ class FriendController{
             ctx.body = statusCode.SUCCESS_200('拉黑成功')
         }
         else{
-            ctx.response.status = 400;//错误的请求
+            ctx.response.status = 200;//错误的请求
             ctx.body = statusCode.ERROR_400()
         }
     }
