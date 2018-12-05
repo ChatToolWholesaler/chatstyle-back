@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
         }
         ,
         friendtype:{
-            type:DataTypes.BOOLEAN,
+            type:DataTypes.INTEGER(11),
             allowNull:false
         },
         isdeleted:{
