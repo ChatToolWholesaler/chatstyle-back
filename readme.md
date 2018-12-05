@@ -64,7 +64,7 @@ router.post('/friend/deleteFriend',FriendController.delete);
 前缀"http://localhost:3000/api/v1" + 接口文档里面写的url;  
 接口文档有些api的url已经直接带上了前缀.
 >
-* 附:接口文档里面有详细的请求参数和返会参数,以及 url,故此处不赘诉.接口文档里面注意接口的状态,只有测试或者对接状态的api可以用.  
+* 附:chatstyle-doc下develop分支里面api.html接口文档里面有详细的请求参数和返会参数,以及 url,故此处不赘诉.接口文档里面注意接口的状态,只有测试或者对接状态的api可以用.  
 * **api开发人员**可以直接在eolinker里面测试,点击接口,找到测试按钮,根据提示即可完成测试.  
 * **非api开发人员**需要自行下载postman等接口测试工具,结合接口文档里给定的请求方法,请求url,请求参数配置http请求,详情自己百度教程. 如果想加入我们小组在eolinker的工作间请私聊我~ 
 
