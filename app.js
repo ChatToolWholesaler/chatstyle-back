@@ -27,6 +27,8 @@ app.use(jwt({secret: secret.sign}).unless({
         /^\/api\/v1\/user\/register/,
         // 登录接口
         /^\/api\/v1\/user\/login/,
+        //上下线接口
+        /^\/api\/v1\/user\/setOnline/,
         // 获取用户列表接口
         /^\/api\/v1\/user\/list/,
          // 获取用户列表接口信息
@@ -37,11 +39,14 @@ app.use(jwt({secret: secret.sign}).unless({
          /^\/api\/v1\/friend\/deleteFriend/,
           //修改用户个性签名
           /^\/api\/v1\/user\/setSign/,
-          
           //接受或拒绝好友请求
           /^\/api\/v1\/friend\/acceptFriend/,
+          //获取好友申请列表、黑名单列表，好友列表
+          /^\/api\/v1\/friend\/getFriendsList/,
     ]
 }))
+
+// http://localhost:3000/api/v1/
 
 // middlewares
 app.use(bodyparser({

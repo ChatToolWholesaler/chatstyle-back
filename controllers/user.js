@@ -127,6 +127,55 @@ class UserController {
     }
 
     /**
+     * 
+     * @param  ctx 
+     */
+    static async online(ctx){
+        const getdata=ctx.request.body
+        const user=await userModel.findUserById(getdata.userId)
+        console.log(user)
+        if(!user){//没有这个用户,返回错误码
+            ctx.response.status = 200;
+            ctx.body = statusCode.ERROR_400();
+        }else{
+            console.log(user.isonline)
+            
+            if(parseInt(getdata.type)==1){//type=1,上线
+                
+                //上线之前先判断,该用户是否已经在线
+                if(user.isonline){
+                    
+                     //用户已经在线
+                     //不允许上线
+                     ctx.response.status = 200;
+                    ctx.body = statusCode.ERROR_400();
+                }else {//用户不在线,允许上线
+                    await userModel.updateOnlinestate(getdata.userId,getdata.roomno,true)
+                    ctx.response.status = 200;
+                    ctx.body = statusCode.SUCCESS2_200();
+                }
+           }else if(parseInt(getdata.type)==0){//type=0, 下线
+            if(user.isonline){
+                console.log(user.isonline)
+                //用户已经在线
+                //允许下线
+                await userModel.updateOnlinestate(getdata.userId,-1,false)
+                ctx.response.status = 200;
+                ctx.body = statusCode.SUCCESS2_200();
+               
+           }else {//用户不在线,不允许下线
+               
+               ctx.response.status = 200;
+               ctx.body = statusCode.ERROR_400();
+
+           }
+           }
+        }  
+        // ctx.response.status = 200;
+        // ctx.body = statusCode.ERROR_400();
+    }
+
+    /**
      * 删除用户
      * @param ctx
      * @returns {Promise.<void>}
@@ -213,6 +262,11 @@ class UserController {
     //根据username, 获得用户ID.
     static async getUserIdByName(username){//异步操作一定会返回Promise对象.
         const User = await userModel.findUserByName(username);
+       // console.log(User)
+        return User;
+    }
+    static async getUserById(userId){//异步操作一定会返回Promise对象.
+        const User = await userModel.findUserById(userId);
        // console.log(User)
         return User;
     }

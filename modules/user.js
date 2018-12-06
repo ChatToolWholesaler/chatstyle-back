@@ -72,6 +72,20 @@ class UserModel {
         })
     }
 
+    static async updateOnlinestate(id,newroomno,ison){
+        await User.update(
+            {
+                roomno:newroomno,
+                isonline:ison
+            },{
+                where:{
+                    id
+                },
+                fields:['roomno','isonline']
+            });
+        return true;
+    }
+
 
     
 }

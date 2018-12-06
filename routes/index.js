@@ -27,6 +27,8 @@ const router = new Router({
 router.post('/user/register', UserController.create);
 // 用户登录
 router.post('/user/login', UserController.login);
+//用户上线或下线
+router.post('/user/setOnline', UserController.online);
 // 删除用户
 router.delete('/user/delete/:id', UserController.delete);
 // 获取用户信息
@@ -48,6 +50,10 @@ router.post('/friend/deleteFriend',FriendController.delete);
 
 //接受好友请求
 router.post('/friend/acceptFriend',FriendController.accept);
+
+//获取好友请求列表，黑名单列表，好友申请列表
+router.post('/friend/getFriendsList',FriendController.getList)
+
 /**
  * 其它接口
  */
