@@ -46,6 +46,8 @@ router.post('/friend/addFriend',FriendController.create);
 //删除好友或者移除黑名单
 router.post('/friend/deleteFriend',FriendController.delete);
 
+//接受好友请求
+router.post('/friend/acceptFriend',FriendController.accept);
 /**
  * 其它接口
  */

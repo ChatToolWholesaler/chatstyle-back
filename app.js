@@ -38,6 +38,8 @@ app.use(jwt({secret: secret.sign}).unless({
           //修改用户个性签名
           /^\/api\/v1\/user\/setSign/,
           
+          //接受或拒绝好友请求
+          /^\/api\/v1\/friend\/acceptFriend/,
     ]
 }))
 

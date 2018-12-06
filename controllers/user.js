@@ -213,7 +213,7 @@ class UserController {
     //根据username, 获得用户ID.
     static async getUserIdByName(username){//异步操作一定会返回Promise对象.
         const User = await userModel.findUserByName(username);
-        console.log(User)
+       // console.log(User)
         return User;
     }
 }

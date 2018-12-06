@@ -50,11 +50,12 @@ const statusCode = {
             data,
         }
     },
-    // SUCCESS_200: () => {
-    //     return {
-    //         code: 200,
-    //     }
-    // }
+    test: (msg) => {
+        return {
+            code: 200,
+            msg,
+        }
+    },
     SUCCESS2_200: () => {
         return {
             code: 200,
