@@ -27,6 +27,16 @@ class FriendModel{
 
     }
 
+    static async findRelationById(user_id){
+        return await Friend.findOne(
+            {
+                where:{
+                    user_id,
+                }
+            }
+        )
+    }
+
     static async updateRelation(user_id,friend_id,newRelation){
         await Friend.update(
             {

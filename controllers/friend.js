@@ -16,8 +16,8 @@ class FriendController {
       //添加好友请求
       //根据好友的名字找到好友
       //再找到id
-      const passiveUser = await UserController.getUserIdByName(
-        data.passiveAddName
+      const passiveUser = await UserController.getUserById(
+        data.passiveAddId
       );
       console.log(passiveUser);
       //应该先判断,user_id,friend_id对是否存在数据库中:
@@ -26,7 +26,7 @@ class FriendController {
         data.initiativeAddId
       );
       if (existRelation) {
-        //如果存在：陌生人关系可以继续请求!
+        //如果存在：陌生人关系可以继续请求! stone==1 
         if (existRelation.friendtype == 3) {
           //更新friendtype=2,变为对方的请求列表
           await friendModel.updateRelation(
@@ -45,7 +45,7 @@ class FriendController {
           ctx.response.status = 200;
           ctx.body = statusCode.ERROR_400();
         }
-      } else {
+      } else {//如果不存在:新建关系 //stone==1
         const forfriend = {
           user_id: passiveUser.id,
           friend_id: data.initiativeAddId,
@@ -53,7 +53,6 @@ class FriendController {
         };
         //console.log(forfriend);
         await friendModel.create(forfriend);
-        //如果不存在:新建
         ctx.response.status = 200;
         ctx.body = statusCode.SUCCESS2_200();
       }
@@ -63,8 +62,8 @@ class FriendController {
       //拉黑好友
       //根据好友的名字找到好友
       //再找到id
-      const passiveUser = await UserController.getUserIdByName(
-        data.passiveAddName
+      const passiveUser = await UserController.getUserById(
+        data.passiveAddId
       );
       //console.log(passiveUser);
       //应该先判断,user_id,friend_id对是否存在数据库中:
@@ -113,7 +112,7 @@ class FriendController {
   static async delete(ctx)
   {
     const getdata = ctx.request.body;
-    const friend = await UserController.getUserIdByName(getdata.passiveAddName);
+    const friend = await UserController.getUserById(getdata.passiveAddId);
     const friendId = friend.id;
     const existRelation1 = await friendModel.findRelationByPair(
       getdata.initiativeAddId,
@@ -171,6 +170,8 @@ class FriendController {
             getdata.initiativeAddId,
             0
           );
+          ctx.response.status = 200;
+          ctx.body = statusCode.SUCCESS2_200();
         } else {
           //为了防止那种错误,新建为B和A新建一个好友的关系
           const forfriend = {
@@ -197,7 +198,7 @@ class FriendController {
       //接受: agree=1
       //找到user_id, friendId pair的关系,friendtype=0
       //friendID,user_id pair ,friendtype=0
-      const friend = await UserController.getUserIdByName(getdata.friendName);
+      const friend = await UserController.getUserById(getdata.friendId);
       const friendId = friend.id;
       const existRelation1 = await friendModel.findRelationByPair(
         getdata.userId,
@@ -208,13 +209,14 @@ class FriendController {
         getdata.userId
       );
       console.log(existRelation2);
+      //先判断他们之间是否存在关系
       if (!existRelation1 || existRelation1.friendtype != 2) {
         //如果他们之间没有关系,或者他们之间的关系不是请求关系,则请求不进行任何操作
+        //返回请求错误
         ctx.response.status = 200;
-        ctx.body = statusCode.SUCCESS_400();
+        ctx.body = statusCode.ERROR_400();
       } else {
         await friendModel.updateRelation(getdata.userId, friendId, 0);
-
         if (existRelation2) {
           //如果存在,直接更新不必新建
           await friendModel.updateRelation(friendId, getdata.userId, 0);
@@ -240,17 +242,48 @@ class FriendController {
       );
       if (!existRelation1 || existRelation1.friendtype != 2) {
         //如果他们之间没有关系,或者他们之间的关系不是请求关系,则请求不进行任何操作
+         ctx.response.status = 200;
+         ctx.body = statusCode.ERROR_400();
       } else {
         await friendModel.updateRelation(getdata.userId, friendId, 3); //更改为陌生人关系
       }
-
       ctx.response.status = 200;
       ctx.body = statusCode.SUCCESS2_200();
     } else {
       ctx.response.status = 200;
-      ctx.body = statusCode.SUCCESS_400();
+      ctx.body = statusCode.ERROR_400();
     }
   }
+
+  static async getList(ctx){
+    const getdata = ctx.request.body; 
+    const existRelation= await friendController.findRelationById(getdata.userId)
+    //先判断关系里面是否有这ID
+    if(!existRelation){
+       //没有返回,查询失败,没有获得数据
+       ctx.response.status = 200;
+       ctx.body = statusCode.ERROR_400();
+
+    }else{//有  //parseInt,不确定是否需要转换类型
+      
+      if(getdata.type==0){//type=0: 获取好友列表
+        //找type=0
+
+      }else if(getdata.type==1){//type=1  获取黑名单列表
+
+      }else if(getdata.type==2){ //type=2  获取申请列表
+
+      }else{//不返回任何数据
+        ctx.response.status = 200;
+        ctx.body = statusCode.ERROR_400();
+
+      }
+    }
+   
+
+  }
+
+
 }
 
 module.exports = FriendController;
