@@ -47,6 +47,11 @@ app.use(jwt({secret: secret.sign}).unless({
           //上传消息到服务器
           /^\/api\/v1\/message\/uploadMsg/,
 
+          //管理员相关接口
+          /^\/api\/v1\/admin\/addAdmin/,
+          //管理员登录
+          /^\/api\/v1\/admin\/login/,
+
     ]
 }))
 

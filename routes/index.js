@@ -4,20 +4,11 @@ const UserController = require('../controllers/user')
 const FriendController = require('../controllers/friend')
 const ProfileController = require('../controllers/profile')
 const MessageController=require('../controllers/message')
+const AdminController=require('../controllers/admin')
 const router = new Router({
     prefix: '/api/v1'
 })
 
-
-// const foruser = {
-//     username: 'pili',
-//     password: '234',
-// }
-// const forprofile = {
-//     nickname: 'nickname',
-//     gender: 1,
-// }
-// UserController.create(foruser,forprofile)
 
 /**
  * 用户接口
@@ -70,8 +61,8 @@ router.post('/message/uploadMsg',MessageController.uploadMsg)
  * 管理员
  */
 //增加管理员接口
-//router.post('/admin/addAdmin',AdminController.addAdmin)
-
+router.post('/admin/addAdmin',AdminController.create)
+router.post('/admin/login',AdminController.login)
  /**
  * 管理员用户接口
  */
