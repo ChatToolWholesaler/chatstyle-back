@@ -3,7 +3,7 @@ const Router = require('koa-router')
 const UserController = require('../controllers/user')
 const FriendController = require('../controllers/friend')
 const ProfileController = require('../controllers/profile')
-
+const MessageController=require('../controllers/message')
 const router = new Router({
     prefix: '/api/v1'
 })
@@ -55,8 +55,10 @@ router.post('/friend/acceptFriend',FriendController.accept);
 router.post('/friend/getFriendsList',FriendController.getList)
 
 /**
- * 其它接口
+ * 消息接口
  */
+//上传消息到服务器
+router.post('/message/uploadMsg',MessageController.uploadMsg)
 
 
  

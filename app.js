@@ -44,6 +44,9 @@ app.use(jwt({secret: secret.sign}).unless({
           /^\/api\/v1\/friend\/acceptFriend/,
           //获取好友申请列表、黑名单列表，好友列表
           /^\/api\/v1\/friend\/getFriendsList/,
+          //上传消息到服务器
+          /^\/api\/v1\/message\/uploadMsg/,
+
     ]
 }))
 
