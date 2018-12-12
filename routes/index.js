@@ -59,4 +59,20 @@ router.post('/friend/getFriendsList',FriendController.getList)
  */
 
 
+ 
+/**
+ * 管理员接口
+ */
+
+ /**
+ * 管理员
+ */
+//增加管理员接口
+//router.post('/admin/addAdmin',AdminController.addAdmin)
+
+ /**
+ * 管理员用户接口
+ */
+
+
 module.exports = router

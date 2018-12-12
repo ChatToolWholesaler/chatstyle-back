@@ -1,4 +1,5 @@
 const friendModel = require("../modules/friend");
+const ProfileController = require('../controllers/profile')
 const UserController = require("../controllers/user");
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secret");
@@ -76,7 +77,9 @@ class FriendController {
         //如果是好友关系
         //更改(initid, passiveid).friendtype=1 为黑名单
         //更改( passiveid,initid).friendtype=3 为陌生人
-        if (existRelation.friendtype == 0) {
+
+        //修改：不管是什么关系,拉黑就直接拉黑.尽量减少不必要的错误.
+        //if (existRelation.friendtype == 0) {
           await friendModel.updateRelation(
             data.initiativeAddId,
             passiveUser.id,
@@ -89,17 +92,28 @@ class FriendController {
           );
           ctx.response.status = 200;
           ctx.body = statusCode.SUCCESS2_200();
-        } else {
-          //如果不是好友关系
-          //不进行任何操作
-          //返回这是错误的请求
-          ctx.response.status = 200;
-          ctx.body = statusCode.ERROR_400();
-        }
+        // } else {
+        //   //如果不是好友关系
+        //   //不进行任何操作
+        //   //返回这是错误的请求
+        //   ctx.response.status = 200;
+        //   ctx.body = statusCode.ERROR_400();
+        // }
       } else {
         //如果不存在,数据库不进行任何操作.
+        //如果不存在,也应该可以进行拉黑.
+        // ctx.response.status = 200;
+        // ctx.body = statusCode.ERROR_400();
+        const forblack = {
+          friend_id: data.initiativeAddId,
+          user_id: passiveUser.id,
+          friendtype: 1 //黑名单
+        };
+        //console.log(forfriend);
+        await friendModel.create(forblack);
         ctx.response.status = 200;
-        ctx.body = statusCode.ERROR_400();
+        ctx.body = statusCode.SUCCESS2_200();
+
       }
     } else {
       ctx.response.status = 200; //错误的请求
@@ -257,7 +271,7 @@ class FriendController {
 
   static async getList(ctx){
     const getdata = ctx.request.body; 
-    const existRelation= await friendController.findRelationById(getdata.userId)
+    const existRelation= await friendModel.findRelationById(getdata.userId)
     //先判断关系里面是否有这ID
     if(!existRelation){
        //没有返回,查询失败,没有获得数据
@@ -265,23 +279,32 @@ class FriendController {
        ctx.body = statusCode.ERROR_400();
 
     }else{//有  //parseInt,不确定是否需要转换类型
+       //type=0, 获取好友列表
+       //type=1  获取黑名单列表
+       //type=2  获取申请列表
+        const data=await friendModel.findAllFriendList(getdata.userId,getdata.type)
+        //返回的是一个数组
+        let arrayObj=new Array();
+        for(let i=0;i<data.length;i++){
+          let friend=await ProfileController.getProfileById(data[i].friend_id)
+          let returndata={
+            nickname:friend.nickname,
+            friendId:friend.user_id,
+            gender:friend.gender,
+            sign:friend.sign
+          }
+          arrayObj.push(returndata)
+        }
+        if(arrayObj.length>0){
+          ctx.response.status = 200;
+          ctx.body = statusCode.SUCCESS_200(arrayObj);
+          return true
+        }
       
-      if(getdata.type==0){//type=0: 获取好友列表
-        //找type=0
-
-      }else if(getdata.type==1){//type=1  获取黑名单列表
-
-      }else if(getdata.type==2){ //type=2  获取申请列表
-
-      }else{//不返回任何数据
+      }//不返回任何数据
         ctx.response.status = 200;
         ctx.body = statusCode.ERROR_400();
-
-      }
     }
-   
-
-  }
 
 
 }

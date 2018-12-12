@@ -50,6 +50,16 @@ class FriendModel{
             });
             return true;
     }
+
+    static async findAllFriendList(user_id,friendtype) {
+        return await Friend.findAll(
+            {where:{
+                user_id,
+                friendtype
+            }
+        }
+        )
+    }
 }
 
 module.exports = FriendModel

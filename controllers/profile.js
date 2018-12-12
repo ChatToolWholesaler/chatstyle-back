@@ -22,6 +22,8 @@ class ProfileController {
             ctx.response.status = 200;
             ctx.body = statusCode.ERROR_412()
         }
+    
+     
         
         // try {
         //     ctx.response.status = 200;
@@ -31,6 +33,10 @@ class ProfileController {
         //     ctx.body = statusCode.ERROR_412()
         // }
     }
+
+    static async getProfileById(user_id){
+        return await ProfileModel.findProfileById(user_id)
+     }
 
     // /**
     //  * 创建用户

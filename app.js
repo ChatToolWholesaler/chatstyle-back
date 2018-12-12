@@ -11,6 +11,7 @@ const index = require('./routes/index')
 const secret = require('./config/secret')
 const err = require('./middleware/error')
 //const UserController = require('../controllers/user')
+//const FriendController = require('../controllers/friend')
 // error handler
 onerror(app)
 
@@ -68,7 +69,8 @@ app.use(async (ctx, next) => {
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
+
+//routes
 app.use(index.routes(), index.allowedMethods())
 
 // error-handling
