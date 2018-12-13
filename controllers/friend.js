@@ -105,8 +105,8 @@ class FriendController {
         // ctx.response.status = 200;
         // ctx.body = statusCode.ERROR_400();
         const forblack = {
-          friend_id: data.initiativeAddId,
-          user_id: passiveUser.id,
+          user_id: data.initiativeAddId,
+          friend_id: passiveUser.id,
           friendtype: 1 //黑名单
         };
         //console.log(forfriend);
