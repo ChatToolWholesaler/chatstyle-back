@@ -182,7 +182,7 @@ class FriendController {
           await friendModel.updateRelation(
             friendId,
             getdata.initiativeAddId,
-            0
+            3
           );
           ctx.response.status = 200;
           ctx.body = statusCode.SUCCESS2_200();
@@ -191,7 +191,7 @@ class FriendController {
           const forfriend = {
             user_id: friendId,
             friend_id: getdata.initiativeAddId,
-            friendtype: 0
+            friendtype: 3
           };
           await friendModel.create(forfriend);
           //如果不存在:新建
