@@ -176,7 +176,7 @@ class FriendController {
       else if (parseInt(getdata.type) == 1) {
         //移除黑名单
         //A,B 对 关系和B，A 对关系都变为 0
-        await friendModel.updateRelation(getdata.initiativeAddId, friendId, 0);
+        await friendModel.updateRelation(getdata.initiativeAddId, friendId, 3);
         if (existRelation2) {
           //防止存在B是A的好友,但是A不是B的好友的数据库错误.
           await friendModel.updateRelation(
