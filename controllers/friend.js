@@ -276,7 +276,9 @@ class FriendController {
     if(!existRelation){
        //没有返回,查询失败,没有获得数据
        ctx.response.status = 200;
-       ctx.body = statusCode.ERROR_400();
+       let arrayObj=new Array();
+       ctx.body = statusCode.SUCCESS_200(arrayObj);
+       return true
 
     }else{//有  //parseInt,不确定是否需要转换类型
        //type=0, 获取好友列表
@@ -295,11 +297,9 @@ class FriendController {
           }
           arrayObj.push(returndata)
         }
-        if(arrayObj.length>0){
           ctx.response.status = 200;
           ctx.body = statusCode.SUCCESS_200(arrayObj);
           return true
-        }
       
       }//不返回任何数据
         ctx.response.status = 200;
