@@ -65,7 +65,14 @@ app.use(jwt({secret: secret.sign}).unless({
           /^\/api\/v1\/admin\/user\/deleteUser/,
           //发布公告
           /^\/api\/v1\/admin\/announcement\/publish/,
-          //
+          //统计公告详细数据
+          /^\/api\/v1\/admin\/announcement\/getStatistics/,
+          //获取历史公告
+          /^\/api\/v1\/admin\/announcement\/getHistory/,
+          //轮询用,暂时放在管理员端
+          /^\/api\/v1\/admin\/polling/,
+
+          
           
     ]
 }))

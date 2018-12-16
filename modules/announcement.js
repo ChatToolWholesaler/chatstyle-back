@@ -24,6 +24,21 @@ class AnnouncementModel {
         })
         return true
     }
+
+    static async getTotalNumber(){
+        return await Announcement.count(
+             {where:{
+                 isdeleted:0,
+             }            
+             }
+         )
+     }
+
+     static async getList() {
+        return await Announcement.findAll({
+            attributes: ['title','detail']
+        })
+    }
 }
 
 module.exports = AnnouncementModel;

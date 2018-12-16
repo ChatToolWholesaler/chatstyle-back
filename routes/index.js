@@ -72,7 +72,10 @@ router.post('/admin/user/offlineUser',AdminController.offlineUser)
 router.post('/admin/user/deleteUser',AdminController.deleteUser)
 //发布公告
 router.post('/admin/announcement/publish',AnnouncementController.publish)
-
+//获取公告的统计数据
+router.post('/admin/announcement/getStatistics',AnnouncementController.getStatistics)
+//获取历史公告
+router.post('/admin/announcement/getHistory',AnnouncementController.getHistory)
 
  /**
  * 管理员用户接口
