@@ -86,6 +86,19 @@ class UserModel {
         return true;
     }
 
+    static async updateOnlinestate(id,ison){
+        await User.update(
+            {
+                isonline:ison
+            },{
+                where:{
+                    id
+                },
+                fields:['isonline']
+            });
+        return true;
+    }
+
     static async updateBanstate(id,isban){
         await User.update(
             {

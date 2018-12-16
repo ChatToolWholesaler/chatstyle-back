@@ -123,6 +123,14 @@ class AdminController {
         ctx.response.status = 200;
         ctx.body = statusCode.SUCCESS2_200()
     }
+
+    //强制用户下线
+    static async offlineUser(ctx){
+        const getdata = ctx.request.body;
+        await UserController.setOffline(getdata.username)
+        ctx.response.status = 200;
+        ctx.body = statusCode.SUCCESS2_200()
+    }
 }
 
 module.exports = AdminController;

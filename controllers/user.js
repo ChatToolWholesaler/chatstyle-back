@@ -279,8 +279,17 @@ class UserController {
         await userModel.updateBanstate(user.id,isbanned)
         return true;
        }
+    }
 
-
+    //强制用户下线
+    static async setOffline(username){
+        const user=await userModel.findUserByName(username)
+       if(!user){
+           return false;
+       }else{
+        await userModel.updateOnlinestate(user.id,false)
+        return true;
+       }
     }
     
 

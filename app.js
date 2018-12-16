@@ -60,7 +60,7 @@ app.use(jwt({secret: secret.sign}).unless({
           //禁止用户登录
           /^\/api\/v1\/admin\/user\/forbidLogin/,
           //允许用户登录
-          /^\/api\/v1\/admin\/user\/permitLogin/,
+          /^\/api\/v1\/admin\/user\/offlineUser/,
     ]
 }))
 
