@@ -42,7 +42,7 @@ class UserModel {
      */
     static async findAllUserList() {
         return await User.findAll({
-            attributes: ['id', 'username']
+            attributes: ['username','isonline','isbanned','createdAt','updatedAt']
         })
     }
 
@@ -84,6 +84,40 @@ class UserModel {
                 fields:['roomno','isonline']
             });
         return true;
+    }
+
+    static async updateBanstate(id,isban){
+        await User.update(
+            {
+                isbanned:isban
+            },{
+                where:{
+                    id
+                },
+                fields:['isbanned']
+            });
+        return true;
+    }
+
+    //统计用户信息
+    static async getTotalNumber(){
+       return await User.count(
+            {where:{
+                isdeleted:0,
+            }            
+            }
+        )
+    }
+
+    static async getTotalOnlineNumber(){
+      return await User.count(
+            {
+                where:{
+                    isonline: 1,
+                }
+
+            }
+        )
     }
 
 

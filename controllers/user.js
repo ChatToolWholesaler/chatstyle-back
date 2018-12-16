@@ -133,12 +133,12 @@ class UserController {
     static async online(ctx){
         const getdata=ctx.request.body
         const user=await userModel.findUserById(getdata.userId)
-        console.log(user)
+        //console.log(user)
         if(!user){//没有这个用户,返回错误码
             ctx.response.status = 200;
             ctx.body = statusCode.ERROR_400();
         }else{
-            console.log(user.isonline)
+           // console.log(user.isonline)
             
             if(parseInt(getdata.type)==1){//type=1,上线
                 
@@ -156,7 +156,7 @@ class UserController {
                 }
            }else if(parseInt(getdata.type)==0){//type=0, 下线
             if(user.isonline){
-                console.log(user.isonline)
+                //console.log(user.isonline)
                 //用户已经在线
                 //允许下线
                 await userModel.updateOnlinestate(getdata.userId,-1,false)
@@ -218,7 +218,7 @@ class UserController {
                 
                 const user_id=user.id;
                 const profile=await profileModel.findProfileById(user_id)
-                console.log(profile);
+                //console.log(profile);
                 //数据库查询,查找user_id的nickname,sign,gender.
                 const nickname=profile.nickname;
                 const sign=profile.sign;
@@ -240,23 +240,10 @@ class UserController {
 
     /**
      * 获取用户列表
-     * @param ctx
-     * @returns {Promise.<void>}
      */
-    static async getUserList(ctx) {
-        let userList = ctx.request.body;
-
-        if (userList) {
+    static async getUserList() {
             const data = await userModel.findAllUserList();
-
-            ctx.response.status = 200;
-            ctx.body = statusCode.SUCCESS_200('查询成功', data)
-        } else {
-
-            ctx.response.status = 200;
-            ctx.body = statusCode.ERROR_412('获取失败')
-
-        }
+            return data;
     }
 
     //根据username, 获得用户ID.
@@ -270,6 +257,33 @@ class UserController {
        // console.log(User)
         return User;
     }
+
+    //获取用户信息: 在线人数,总用户人数
+    static async getUsersStatistic(){//异步操作一定会返回Promise对象.
+        const totoalNum = await userModel.getTotalNumber();
+        const onlineNum= await userModel.getTotalOnlineNumber();
+       // console.log(User)
+       const data={
+        totalUserNumber:totoalNum,
+        onlineUserNumber:onlineNum
+       }
+        return data;
+    }
+
+    //禁止或者允许用户登录
+    static async setBanned(username,isbanned){
+       const user=await userModel.findUserByName(username)
+       if(!user){
+           return false;
+       }else{
+        await userModel.updateBanstate(user.id,isbanned)
+        return true;
+       }
+
+
+    }
+    
+
 }
 
 module.exports = UserController

@@ -29,7 +29,7 @@ router.post('/user/getUserInfo', UserController.getUserInfo);
 // 修改用户个性签名
 router.post('/user/setSign', ProfileController.setSign);
 // 获取用户列表
-router.get('/user/list', UserController.getUserList);
+//router.get('/user/list', UserController.getUserList);
 
 /**
  * 好友黑名单接口
@@ -63,6 +63,11 @@ router.post('/message/uploadMsg',MessageController.uploadMsg)
 //增加管理员接口
 router.post('/admin/addAdmin',AdminController.create)
 router.post('/admin/login',AdminController.login)
+router.post('/admin/user/getStatistics',AdminController.getStatistics)
+router.post('/admin/user/getUserList',AdminController.getUserList)
+router.post('/admin/user/forbidLogin',AdminController.forbidLogin)
+router.post('/admin/user/permitLogin',AdminController.permitLogin)
+
  /**
  * 管理员用户接口
  */

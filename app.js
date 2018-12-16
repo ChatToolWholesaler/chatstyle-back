@@ -51,7 +51,16 @@ app.use(jwt({secret: secret.sign}).unless({
           /^\/api\/v1\/admin\/addAdmin/,
           //管理员登录
           /^\/api\/v1\/admin\/login/,
-
+          //管理员统计用户数据
+          /^\/api\/v1\/admin\/user\/getStatistics/,
+          //管理员强制用户下线
+          /^\/api\/v1\/admin\/user\/offlineUser/,
+          //管理员获取用户列表
+          /^\/api\/v1\/admin\/user\/getUserList/,
+          //禁止用户登录
+          /^\/api\/v1\/admin\/user\/forbidLogin/,
+          //允许用户登录
+          /^\/api\/v1\/admin\/user\/permitLogin/,
     ]
 }))
 
