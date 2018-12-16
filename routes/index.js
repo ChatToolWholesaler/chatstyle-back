@@ -76,6 +76,7 @@ router.post('/admin/announcement/publish',AnnouncementController.publish)
 router.post('/admin/announcement/getStatistics',AnnouncementController.getStatistics)
 //获取历史公告
 router.post('/admin/announcement/getHistory',AnnouncementController.getHistory)
+router.post('/admin/polling',AdminController.polling)
 
  /**
  * 管理员用户接口

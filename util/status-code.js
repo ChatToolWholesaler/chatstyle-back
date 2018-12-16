@@ -60,6 +60,12 @@ const statusCode = {
         return {
             code: 200,
         }
+    },
+    SUCCESS3_200: (data) => {
+        return {
+            code: 400,
+            data,
+        }
     }
     //这个函数会覆盖掉上一个函数
 }

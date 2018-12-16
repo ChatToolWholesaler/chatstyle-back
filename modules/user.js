@@ -6,6 +6,9 @@ const Profile = Sequelize.import('../schema/profile.js')
 Profile.sync({force: false});
 //User.hasOne(Profile);
 
+global.offlineUsser=-1;
+
+
 class UserModel {
     /**
      * 创建用户
@@ -86,10 +89,11 @@ class UserModel {
         return true;
     }
 
-    static async updateOnlinestate(id,ison){
+    static async setOffline(id){//管理员强制下线
+        offlineUsser=id;
         await User.update(
             {
-                isonline:ison
+                isonline:false
             },{
                 where:{
                     id
@@ -97,6 +101,12 @@ class UserModel {
                 fields:['isonline']
             });
         return true;
+    }
+
+    static getofflineUser(){
+        let tempt=offlineUsser;
+        offlineUsser=-1;
+        return tempt;
     }
 
     static async updateBanstate(id,isban){
@@ -148,7 +158,7 @@ class UserModel {
         )
     }
 
-
+  
     
 }
 

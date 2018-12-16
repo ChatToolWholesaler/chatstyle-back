@@ -1,5 +1,6 @@
 const adminModel = require("../modules/admin");
 const UserController = require('../controllers/user')
+const AnnouncementController = require('../controllers/announcement')
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secret");
 const bcrypt = require("bcryptjs");
@@ -140,6 +141,41 @@ class AdminController {
         await UserController.delete(getdata.username)
         ctx.response.status = 200;
         ctx.body = statusCode.SUCCESS2_200()
+    }
+
+    //轮询接口
+    static async polling(ctx){
+        //确定是否有用户被强制下线,获取强制下线的用户ID,放在内存里面
+        let id= UserController.getofflineUser();
+        if(id>0){
+            let returndata={
+                title:id.toString(),
+                detail:''
+            }
+            ctx.response.status = 200;
+          ctx.body = statusCode.SUCCESS3_200(returndata);
+          return true;
+
+        }
+
+        //确定是否有新公告
+        const announ=AnnouncementController.getNew();
+        if(announ.isnew){//是新公告
+          let returndata={
+              title:announ.title,
+              detail:announ.detail
+          }
+          ctx.response.status = 200;
+          ctx.body = statusCode.SUCCESS_200(returndata);
+          return true;
+
+        }
+        ctx.response.status = 200;
+        ctx.body = statusCode.SUCCESS2_200()
+
+
+
+
     }
 }
 

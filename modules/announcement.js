@@ -3,6 +3,12 @@ const Sequelize = db.sequelize
 const Announcement = Sequelize.import('../schema/announcement.js')
 Announcement.sync({ force: false });
 
+global.newAnnou={
+    title: '',
+    detail:'',
+    isnew:false
+}
+
 class AnnouncementModel {
     // static async findAdminByName(adminname) {
     //    return await Admin.findOne(
@@ -38,6 +44,28 @@ class AnnouncementModel {
         return await Announcement.findAll({
             attributes: ['title','detail']
         })
+    }
+
+     //存一个全局变量:新的公告
+    //修改新的公告
+    static setNew(title,detail){
+        newAnnou={
+            title:title,
+            detail:detail,
+            isnew:true
+        }
+
+    }
+
+    static getNew(){
+        let tmp={
+            title:newAnnou.title,
+            detail:newAnnou.detail,
+            isnew:newAnnou.isnew
+        };
+        newAnnou.isnew=false;
+        return tmp;
+
     }
 }
 

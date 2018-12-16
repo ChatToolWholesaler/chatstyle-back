@@ -9,18 +9,10 @@ const util = require('util')
 const verify = util.promisify(jwt.verify)
 const statusCode = require('../util/status-code')
 
+
 class UserController {
+    
 
-    // static async create(foruser,profile) {
-
-    //     await userModel.create(foruser);     
-    //     const newUser = await userModel.findUserByName(user.username);
-    //     const forprofile = {
-    //         user_id:newUser.id,
-    //         nickname: profile.nickname,
-    //         gender: profile.gender,
-    //     }
-    // }
 
     /**
      * 创建用户
@@ -106,26 +98,6 @@ class UserController {
             ctx.body = statusCode.ERROR_412('查询失败!')
         }
         
-
-        // if (token) {
-        //     let payload
-        //     try {
-        //         // 解密payload，获取用户名和ID
-        //         payload = await verify(token.split(' ')[1], secret.sign)
-
-        //         const user = {
-        //             id: payload.id,
-        //             username: payload.username,
-        //         }
-
-        //         ctx.response.status = 200;
-        //         ctx.body = statusCode.SUCCESS_200('查询成功', user)
-        //     } catch (err) {
-
-        //         ctx.response.status = 200;
-        //         ctx.body = statusCode.ERROR_412('查询失败，authorization error!')
-        //     }
-        // }
     }
 
     /**
@@ -177,25 +149,6 @@ class UserController {
         // ctx.body = statusCode.ERROR_400();
     }
 
-    // /**
-    //  * 删除用户
-    //  * @param ctx
-    //  * @returns {Promise.<void>}
-    //  */
-    // static async delete(ctx) {
-    //     let id = ctx.params.id;
-
-    //     if (id && !isNaN(id)) {
-    //         await userModel.delete(id);
-
-    //         ctx.response.status = 200;
-    //         ctx.body = statusCode.SUCCESS_200('删除用户成功')
-    //     } else {
-
-    //         ctx.response.status = 200;
-    //         ctx.body = statusCode.ERROR_412('用户ID必须传')
-    //     }
-    // }
 
     /**
      * 登录
@@ -289,7 +242,7 @@ class UserController {
        if(!user){
            return false;
        }else{
-        await userModel.updateOnlinestate(user.id,false)
+        await userModel.setOffline(user.id)
         return true;
        }
     }
@@ -315,6 +268,14 @@ class UserController {
        }
 
     }
+
+
+    static getofflineUser(){
+       let data= userModel.getofflineUser();
+       return data;
+    }
+ 
+    
 
 }
 

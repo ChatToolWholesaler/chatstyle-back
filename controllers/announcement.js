@@ -18,6 +18,8 @@ class AnnouncementController {
                 title: getdata.title,
                 detail: getdata.detail
             }
+            //在内存中存一个新的通知,用以轮询时返回
+            announcementModel.setNew(getdata.title,getdata.detail);
             await announcementModel.create(forAnnoun)
             ctx.response.status = 200;
             ctx.body = statusCode.SUCCESS2_200()
@@ -25,6 +27,11 @@ class AnnouncementController {
             ctx.response.status = 200;
             ctx.body = statusCode.ERROR_400();
         }
+    }
+    //获得新的通告
+    static getNew(){
+        let data= announcementModel.getNew();
+        return data;
     }
 
 
