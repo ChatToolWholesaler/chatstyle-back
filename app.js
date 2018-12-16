@@ -63,6 +63,9 @@ app.use(jwt({secret: secret.sign}).unless({
           /^\/api\/v1\/admin\/user\/offlineUser/,
           //删除用户
           /^\/api\/v1\/admin\/user\/deleteUser/,
+          //发布公告
+          /^\/api\/v1\/admin\/announcement\/publish/,
+          //
           
     ]
 }))

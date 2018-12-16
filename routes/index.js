@@ -5,6 +5,7 @@ const FriendController = require('../controllers/friend')
 const ProfileController = require('../controllers/profile')
 const MessageController=require('../controllers/message')
 const AdminController=require('../controllers/admin')
+const AnnouncementController=require('../controllers/announcement')
 const router = new Router({
     prefix: '/api/v1'
 })
@@ -69,6 +70,8 @@ router.post('/admin/user/forbidLogin',AdminController.forbidLogin)
 router.post('/admin/user/permitLogin',AdminController.permitLogin)
 router.post('/admin/user/offlineUser',AdminController.offlineUser)
 router.post('/admin/user/deleteUser',AdminController.deleteUser)
+//发布公告
+router.post('/admin/announcement/publish',AnnouncementController.publish)
 
 
  /**
