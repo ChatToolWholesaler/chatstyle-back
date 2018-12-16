@@ -131,6 +131,16 @@ class AdminController {
         ctx.response.status = 200;
         ctx.body = statusCode.SUCCESS2_200()
     }
+
+    //删除用户: 注意删除为软删除,即isdelete字段改为true.
+    //被删除的用户不能登录: 即直接改user表
+    //所有表中涉及到该userid的isdeleted都改为 1
+    static async deleteUser(ctx){
+        const getdata = ctx.request.body;
+        await UserController.delete(getdata.username)
+        ctx.response.status = 200;
+        ctx.body = statusCode.SUCCESS2_200()
+    }
 }
 
 module.exports = AdminController;

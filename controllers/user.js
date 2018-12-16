@@ -1,5 +1,7 @@
 const userModel = require('../modules/user');
 const profileModel = require('../modules/profile');
+const FriendController = require('../controllers/friend');
+const ProfileController = require('../controllers/profile');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secret');
 const bcrypt = require('bcryptjs');
@@ -175,25 +177,25 @@ class UserController {
         // ctx.body = statusCode.ERROR_400();
     }
 
-    /**
-     * 删除用户
-     * @param ctx
-     * @returns {Promise.<void>}
-     */
-    static async delete(ctx) {
-        let id = ctx.params.id;
+    // /**
+    //  * 删除用户
+    //  * @param ctx
+    //  * @returns {Promise.<void>}
+    //  */
+    // static async delete(ctx) {
+    //     let id = ctx.params.id;
 
-        if (id && !isNaN(id)) {
-            await userModel.delete(id);
+    //     if (id && !isNaN(id)) {
+    //         await userModel.delete(id);
 
-            ctx.response.status = 200;
-            ctx.body = statusCode.SUCCESS_200('删除用户成功')
-        } else {
+    //         ctx.response.status = 200;
+    //         ctx.body = statusCode.SUCCESS_200('删除用户成功')
+    //     } else {
 
-            ctx.response.status = 200;
-            ctx.body = statusCode.ERROR_412('用户ID必须传')
-        }
-    }
+    //         ctx.response.status = 200;
+    //         ctx.body = statusCode.ERROR_412('用户ID必须传')
+    //     }
+    // }
 
     /**
      * 登录
@@ -205,7 +207,7 @@ class UserController {
         // 查询用户
         const user = await userModel.findUserByName(data.username)
         // 判断用户是否存在
-        if (user) {
+        if (user&&!user.isbanned&&!user.isdeleted) {//用户存在且用户没有被删除,没有被禁止登录
             // 判断前端传递的用户密码是否与数据库密码一致
             if (bcrypt.compareSync(data.password, user.password)) {
                 // 用户token
@@ -292,6 +294,27 @@ class UserController {
        }
     }
     
+
+    //删除用户,未完成有待商榷.
+    static async delete(username){
+
+        const user=await userModel.findUserByName(username)
+       if(!user){
+           return false;
+       }else{
+           //设置user表中的isdeleted.
+        await userModel.setDeletestate(user.id)
+        //软删除profile表中与userid相关的
+        await ProfileController.delete(user.id)
+        //软删除friend表中与userid相关的
+        await FriendController.deleteRelation(user.id)
+
+        
+
+        return true;
+       }
+
+    }
 
 }
 

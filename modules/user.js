@@ -27,14 +27,14 @@ class UserModel {
      * @param id listID
      * @returns {Promise.<boolean>}
      */
-    static async delete(id) {
-        await User.destroy({
-            where: {
-                id,
-            }
-        })
-        return true
-    }
+    // static async delete(id) {
+    //     await User.destroy({
+    //         where: {
+    //             id,
+    //         }
+    //     })
+    //     return true
+    // }
 
     /**
      * 查询用户列表
@@ -111,6 +111,21 @@ class UserModel {
             });
         return true;
     }
+
+    static async setDeletestate(id){
+        await User.update(
+            {
+                isdeleted:true
+            },{
+                where:{
+                    id
+                },
+                fields:['isdeleted']
+            });
+        return true;
+    }
+
+    
 
     //统计用户信息
     static async getTotalNumber(){

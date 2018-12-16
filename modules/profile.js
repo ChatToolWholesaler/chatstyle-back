@@ -35,6 +35,19 @@ class ProfileModel {
     //     return true
     // }
 
+    static async setDeletestate(user_id){
+        await Profile.update(
+            {
+                isdeleted:true
+            },{
+                where:{
+                    user_id
+                },
+                fields:['isdeleted']
+            });
+        return true;
+    }
+
     /**
      * 查询用户的profile列表
      * @returns {Promise<*>}

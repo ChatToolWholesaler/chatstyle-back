@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         isdeleted:{
             type:DataTypes.BOOLEAN,
-            defaultValue:1
+            defaultValue:0
         }
     }, {
         // 如果为 true 则表的名称和 model 相同，即 user

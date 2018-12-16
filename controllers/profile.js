@@ -38,6 +38,15 @@ class ProfileController {
         return await ProfileModel.findProfileById(user_id)
      }
 
+     //由于某个用户被管理员删除,而导致的关系软删除
+    static async delete(id){ 
+        //所有与该userid有关的行都要被删除
+        //删userid=id
+        await ProfileModel.setDeletestate(id);
+        //删friend=id
+  
+      }
+
     // /**
     //  * 创建用户
     //  * @param ctx

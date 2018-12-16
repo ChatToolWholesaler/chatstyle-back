@@ -68,6 +68,7 @@ router.post('/admin/user/getUserList',AdminController.getUserList)
 router.post('/admin/user/forbidLogin',AdminController.forbidLogin)
 router.post('/admin/user/permitLogin',AdminController.permitLogin)
 router.post('/admin/user/offlineUser',AdminController.offlineUser)
+router.post('/admin/user/deleteUser',AdminController.deleteUser)
 
 
  /**
